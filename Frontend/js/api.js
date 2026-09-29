@@ -1,8 +1,3 @@
-/* ==========================================
-   SECCIÓN: js/api.js (Conexión con el backend)
-   ========================================== */
-
-// Diccionario base solo para etiquetas de complejidad y selectores
 const ALGORITHMS_INFO = {
     "Bubble Sort": { complexity: "O(n²)" },
     "Selection Sort": { complexity: "O(n²)" },
@@ -17,19 +12,8 @@ const ALGORITHMS_INFO = {
 const AVAILABLE_ALGORITHMS = Object.keys(ALGORITHMS_INFO);
 const LABELS = ['[A]', '[B]', '[C]', '[D]'];
 
-/**
- * Función encargada de comunicarse con Flask/FastAPI
- * @param {string} algorithmName - Nombre del algoritmo a ejecutar
- * @param {Array} array - Arreglo numérico a ordenar
- * @returns {Object|null} - JSON con la respuesta o null si hay error
- */
 async function fetchAlgorithmDataFromBackend(algorithmName, array) {
-    
-    // CONFIGURACIÓN PARA EL COMPAÑERO DE BACKEND:
-    // 1. Asegúrate de que el puerto (5000) coincida con el de tu app Flask/FastAPI.
-    // 2. Asegúrate de habilitar CORS en tu servidor backend.
-    // 3. El endpoint debe recibir un POST con body: { "algorithm": "...", "array": [...] }
-    const API_URL = 'http://localhost:5000/api/sort';
+    const API_URL = '/api/sort';
 
     try {
         const response = await fetch(API_URL, {
