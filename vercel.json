@@ -1,27 +1,12 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "api/sort.py",
-      "use": "@vercel/python"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "src": "Frontend/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/sort",
-      "dest": "api/sort.py"
-    },
-    {
-      "src": "/",
-      "dest": "Frontend/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "Frontend/$1"
+      "source": "/(.*)",
+      "destination": "/Frontend/$1"
     }
   ]
 }
