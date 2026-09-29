@@ -12,11 +12,11 @@ Aplicación web educativa para **visualizar, ejecutar y comparar ocho algoritmos
 ## Integrantes
  
 **Equipo:** Los Big-O
-| Integrante | Código | Usuario de GitHub |
-|---|---|---|
-| Aldo Damián Gutiérrez Medina |  | Coffee2Donuts |
-| Alan Arturo Uribe Pérez |  | AlanUribe10 |
-| Karol Nungaray Escobedo |  |  |
+| Integrante | Usuario de GitHub |
+|---|---|
+| Aldo Damián Gutiérrez Medina | Coffee2Donuts |
+| Alan Arturo Uribe Pérez  | AlanUribe10 |
+| Karol Nungaray Escobedo  | KarolaTN3 |
  
 ---
  
