@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CHRONOSORT // COMPARADOR DE ALGORITMOS</title>
+    <!-- Utilizamos Tailwind CSS para la estructura, pero lo personalizaremos fuertemente -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="min-h-screen flex flex-col p-4 text-sm">
+    <!-- ENCABEZADO RETRO -->
+    <header
+      class="mb-6 flex justify-between items-start border-b border-[#333] pb-4"
+    >
+      <div>
+        <h1
+          class="text-3xl font-bold mb-1 text-[#fff] tracking-wider"
+          style="text-shadow: 0 0 10px rgba(255, 255, 255, 0.3)"
+        >
+          CHRONOSORT //
+          <span class="text-[#ff8c00]">COMPARADOR DE ALGORITMOS</span>
+        </h1>
+        <p class="text-[#888] text-xs">
+          Equipo: <span class="text-[#ff8c00]">Los Big-O</span>
+        </p>
+      </div>
+      <div
+        class="text-right max-w-md text-xs text-[#666] border-l border-[#333] pl-4"
+      >
+        Interfaz gráfica retro-futurista para la visualización, ejecución y
+        análisis comparativo de ocho algoritmos de ordenamiento mediante
+        telemetría paso a paso conectada a servidor backend.
+      </div>
+    </header>
+
+    <main class="flex-grow flex flex-col lg:flex-row w-full gap-6">
+      <!-- PANEL DE CONTROLES CYBER -->
+      <aside class="w-full lg:w-72 flex flex-col gap-4 h-fit shrink-0">
+        <div class="cyber-panel p-4 flex flex-col gap-5">
+          <div class="flex items-center gap-2 border-b border-[#333] pb-2">
+            <div class="w-2 h-2 bg-[#ff8c00] rotate-45"></div>
+            <h2 class="text-lg font-bold tracking-widest text-[#fff]">
+              PANEL DE CONTROL
+            </h2>
+            <span
+              class="ml-auto text-[10px] text-[#666] border border-[#333] px-1"
+              >SYS.CTRL</span
+            >
+          </div>
+
+          <div>
+            <div class="flex justify-between text-[10px] text-[#666] mb-2">
+              <span>ALGORITMOS A COMPARAR</span>
+              <span>MÁX 4</span>
+            </div>
+            <div id="selectors-container" class="flex flex-col gap-2">
+              <!-- Selectores dinámicos irán aquí -->
+            </div>
+
+            <button
+              id="btn-add-algo"
+              class="w-full mt-3 py-1 text-xs border border-dashed border-[#555] text-[#888] hover:text-[#ff8c00] hover:border-[#ff8c00] transition"
+            >
+              + AGREGAR ALGORITMO
+            </button>
+          </div>
+
+          <div class="border-t border-[#333] pt-4">
+            <div class="flex justify-between mb-2">
+              <label class="text-xs text-[#888]">TAMAÑO DEL ARREGLO [N]</label>
+              <span id="size-val" class="text-[#ff8c00] font-bold">20</span>
+            </div>
+            <input
+              type="range"
+              id="array-size"
+              min="5"
+              max="100"
+              value="20"
+              class="w-full"
+            />
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-2">
+              <label class="text-xs text-[#888]">VELOCIDAD DE ANIMACIÓN</label>
+              <span id="speed-val" class="text-[#ff8c00] font-bold">50%</span>
+            </div>
+            <input
+              type="range"
+              id="anim-speed"
+              min="1"
+              max="100"
+              value="50"
+              class="w-full"
+            />
+          </div>
+
+          <div class="flex flex-col gap-2 mt-2 pt-4 border-t border-[#333]">
+            <button id="btn-generate" class="cyber-btn py-2 text-xs">
+              ↻ GENERAR ARREGLO
+            </button>
+
+            <div class="grid grid-cols-2 gap-2 mt-2">
+              <button
+                id="btn-start"
+                class="cyber-btn cyber-btn-primary py-2 text-xs flex items-center justify-center gap-2"
+              >
+                <span class="text-lg leading-none">▶</span> INICIAR
+              </button>
+              <button
+                id="btn-pause"
+                class="cyber-btn py-2 text-xs flex items-center justify-center gap-2"
+                disabled
+              >
+                <span class="text-sm font-bold leading-none">||</span> PAUSAR
+              </button>
+            </div>
+
+            <div class="grid grid-cols-[1fr_auto] gap-2 mt-2">
+              <button
+                id="btn-reset"
+                class="cyber-btn cyber-btn-danger py-2 text-xs"
+              >
+                ↺ REINICIAR
+              </button>
+              <button
+                class="cyber-btn px-4 text-xs opacity-50 cursor-not-allowed"
+                title="Función paso a paso en desarrollo"
+              >
+                PASO ▸
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leyenda -->
+        <div class="cyber-panel p-3 text-[10px] flex flex-col gap-2">
+          <div class="text-[#666] mb-1 border-b border-[#333] pb-1">
+            ESTADOS DE TELEMETRÍA
+          </div>
+          <div class="grid grid-cols-2 gap-y-2">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 color-unprocessed"></div>
+              <span class="text-[#888]">Sin procesar</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 color-compare"></div>
+              <span class="text-[#fff]">Comparando</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 color-swap"></div>
+              <span class="text-[#fff]">Intercambio</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 color-write"></div>
+              <span class="text-[#fff]">Escritura/Mezcla</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 color-pivot"></div>
+              <span class="text-[#fff]">Pivote</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 color-done"></div>
+              <span class="text-[#fff]">Ordenado</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ÁREA CENTRAL (Animación y Resultados) -->
+      <section class="flex-grow flex flex-col gap-6">
+        <!-- Contenedor Dinámico de Algoritmos -->
+        <div id="animations-grid" class="grid grid-cols-1 gap-4">
+          <!-- Los paneles se inyectarán por JS -->
+        </div>
+
+        <!-- PANEL DE RESULTADOS -->
+        <div class="cyber-panel flex flex-col overflow-hidden">
+          <div
+            class="flex justify-between items-center p-3 border-b border-[#333]"
+          >
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 grid grid-cols-2 gap-[1px]">
+                <div class="bg-[#ff8c00]"></div>
+                <div class="bg-[#ff8c00]"></div>
+                <div class="bg-[#ff8c00]"></div>
+                <div class="bg-[#ff8c00]"></div>
+              </div>
+              <h3 class="font-bold text-[#ff8c00]">RESULTADOS COMPARATIVOS</h3>
+            </div>
+            <span
+              class="text-[10px] text-[#666] border border-[#333] px-2 py-0.5"
+              >MÉTRICAS DEL SERVIDOR</span
+            >
+          </div>
+
+          <div class="overflow-x-auto p-2">
+            <table class="w-full text-left text-xs whitespace-nowrap">
+              <thead>
+                <tr>
+                  <th class="px-4 py-2">ALGORITMO</th>
+                  <th class="px-4 py-2">COMPARACIONES</th>
+                  <th class="px-4 py-2">INTERCAMBIOS</th>
+                  <th class="px-4 py-2">ESCRITURAS</th>
+                  <th class="px-4 py-2">TIEMPO BACKEND [S]</th>
+                  <th class="px-4 py-2">COMPLEJIDAD</th>
+                </tr>
+              </thead>
+              <tbody id="results-tbody">
+                <!-- Filas inyectadas por JS -->
+                <tr>
+                  <td
+                    colspan="6"
+                    class="px-4 py-6 text-center text-[#555] italic"
+                  >
+                    INICIE LA SECUENCIA PARA OBTENER TELEMETRÍA DEL SERVIDOR.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
